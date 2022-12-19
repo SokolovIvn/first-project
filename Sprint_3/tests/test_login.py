@@ -1,14 +1,12 @@
-import random
-
-from Locators import BUTTON_ORDER, BUTTON_MAIN_ENTER, FIELD_EMAIL, FIELD_PASSWORD, BUTTON_ENTER, BUTTON_ENTER_LK, BUTTON_ENTER_ON_FORM_REGISTR
+from Locators import BUTTON_ORDER, BUTTON_MAIN_ENTER, FIELD_EMAIL, FIELD_PASSWORD, BUTTON_ENTER, BUTTON_ENTER_LK, \
+    BUTTON_ENTER_ON_FORM_REGISTR
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from time import sleep
 
 
-def test_login_on_main_done(get_fixture_email, get_fixture_pswd):
+def test_login_with_button_through_on_main(get_fixture_email, get_fixture_pswd):
     driver = webdriver.Chrome()
     driver.get("https://stellarburgers.nomoreparties.site")
     email = get_fixture_email
@@ -25,10 +23,12 @@ def test_login_on_main_done(get_fixture_email, get_fixture_pswd):
 
     WebDriverWait(driver, 15).until(expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_ORDER)))
 
+    assert len(driver.find_elements(By.XPATH, BUTTON_ORDER)) == 1
+
     driver.quit()
 
-def test_login_with_button_header(get_fixture_email, get_fixture_pswd):
 
+def test_login_through_button_header(get_fixture_email, get_fixture_pswd):
     driver = webdriver.Chrome()
     driver.get("https://stellarburgers.nomoreparties.site")
     email = get_fixture_email
@@ -46,9 +46,11 @@ def test_login_with_button_header(get_fixture_email, get_fixture_pswd):
     WebDriverWait(driver, 15).until(
         expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_ORDER)))
 
+    assert len(driver.find_elements(By.XPATH, BUTTON_ORDER)) == 1
     driver.quit()
 
-def test_login_with_button_on_register_page(get_fixture_email, get_fixture_pswd):
+
+def test_login_through_button_on_register_page(get_fixture_email, get_fixture_pswd):
     driver = webdriver.Chrome()
     driver.get("https://stellarburgers.nomoreparties.site/register")
     email = get_fixture_email
@@ -64,12 +66,13 @@ def test_login_with_button_on_register_page(get_fixture_email, get_fixture_pswd)
     button_enter.click()
 
     WebDriverWait(driver, 15).until(
-    expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_ORDER)))
+        expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_ORDER)))
 
+    assert len(driver.find_elements(By.XPATH, BUTTON_ORDER)) == 1
     driver.quit()
 
 
-def test_login_on_page_forgot_password(get_fixture_email, get_fixture_pswd):
+def test_login_through_button_on_page_forgot_password(get_fixture_email, get_fixture_pswd):
     driver = webdriver.Chrome()
     driver.get("https://stellarburgers.nomoreparties.site/forgot-password")
 
@@ -88,4 +91,5 @@ def test_login_on_page_forgot_password(get_fixture_email, get_fixture_pswd):
     WebDriverWait(driver, 15).until(
         expected_conditions.element_to_be_clickable((By.XPATH, BUTTON_ORDER)))
 
+    assert len(driver.find_elements(By.XPATH, BUTTON_ORDER)) == 1
     driver.quit()
